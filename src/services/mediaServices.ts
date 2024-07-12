@@ -35,21 +35,18 @@ class MediaService {
       throw new Error('media not found!')
     }
     const path = media.media.path.split("\\")[1];
-    console.log(path);
 
     fs.unlink(`C:/Users/sit429/Desktop/CMS_Backend/src/uploads/${path}`, (err) => {
       if (err) {
         console.error('Error deleting file:', err);
         return { statusCode: 500, message: 'Failed to delete content!' };
       }
-      console.log('File Updated successfully');
     });
     return await Media.findByIdAndDelete(id);
   }
 
   public async updateMedia(id: string, file: Express.Multer.File, userId: Types.ObjectId, title: string, body: string): Promise<IMedia | null | boolean> {
     const media = await Media.findOne({ _id: id });
-    console.log(media, "update");
     if (!media) {
       throw new Error('media not found!')
     }
@@ -61,7 +58,6 @@ class MediaService {
         console.error('Error deleting file:', err);
         return { statusCode: 500, message: 'Failed to delete content!' };
       }
-      console.log('File deleted successfully');
     });
 
     const formattedPath = file.path.replace(/^src[\\\/]/, '');

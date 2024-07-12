@@ -73,11 +73,6 @@ class MediaController {
       const userId = new Types.ObjectId((req as CustomRequest).userId);
       const role = (req as CustomRequest).role;
 
-      console.log(userId, "UserID");
-      console.log(role, "Role");
-      console.log(media?.uploadedBy._id, "MediaUokoad");
-
-
       if (userId.toString() === media?.uploadedBy._id.toString() || role === 'admin' ) {
         const updatedMedia = await mediaServices.updateMedia(id, file, media?.uploadedBy._id as any, title, body);
 

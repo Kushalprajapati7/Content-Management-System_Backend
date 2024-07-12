@@ -19,21 +19,18 @@ class UserServices {
 
         let user;
         user = await User.findOne({ email: email })
-        console.log(user, "User");
 
         if (!user) {
             throw new Error(`User with Email ${email} not found`);
         }
 
         const pass = await bcrypt.compare(password, user.password);
-        // console.log(pass);
         
         if (!pass) {
             throw new Error(`Incorrect password`);
         }
         const role = user.role;
         const userName = user.username;
-        console.log(role)
         const token = JwtUtills.generateToken(user.id, user.role);
         return { token, role, userName };;
     }

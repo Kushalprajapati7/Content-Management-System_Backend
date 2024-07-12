@@ -18,7 +18,6 @@ class UserController {
         try {
             const { email, password } = req.body;
             const response = await userServices.loginUser(email, password);
-            console.log(response);
             res.json({ response, message: `Login Successfully` })
         } catch (error: any) {
             res.status(500).json({
